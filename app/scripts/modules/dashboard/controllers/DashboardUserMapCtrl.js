@@ -211,13 +211,13 @@ define([
 
         function calculateCustomIcon(point) {
 
-            if(point.travelType === 'car') {
+            if(point.travelType === 'car' && point.carEvent) {
 
                 if(point.carEvent === 'Heavy braking') {
 
                     point.customIcon = '/images/stop.png';
 
-                } if(point.carEvent === 'Accelerate') {
+                } else if(point.carEvent === 'Accelerate') {
 
                     point.customIcon =  '/images/acs.png';
 

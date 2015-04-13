@@ -68,7 +68,7 @@ define([
                         name : 'Test user'
                     };
                     
-                    $rootScope.user.username = 'test_vasiliy_one_day_test2';
+                    $rootScope.user.username = 'ogievichdv';
                 }
 
                 $http.get('/api/point/byperiod?period=lastday&userid=' + $rootScope.user.username).success(function(response) {
