@@ -150,7 +150,7 @@ function processPoints(points, request) {
                         time: moment(point.timestamp).format("HH:mm"),
                         date : moment(point.timestamp).format("MMM DD YYYY")
                     },
-                    description : 
+                    description : mobileEvent
                 };
 
                 modifiedPoint.previousEvents.push(modifiedPoint.marker);
@@ -342,7 +342,7 @@ function getTravelType(point, callback) {
                         var activeUser = snapshot.val();
 
                         if(activeUser.userid === point.userid) {
-                            point['travel-type'] = 'byCar';
+                            point['travel-type'] = 'car';
                             callback(point);
                         } else {
                             callback(point);

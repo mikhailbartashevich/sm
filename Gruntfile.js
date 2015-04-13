@@ -31,7 +31,7 @@ module.exports = function(grunt) {
             proxies: [
                 {
                     context: '/api',
-                    host: 'localhost',
+                    host: 'evbyminsd4d80.minsk.epam.com',
                     port: 8080,
                     https: false
                 }
