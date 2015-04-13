@@ -26,6 +26,10 @@ define([
             angular.forEach($scope.stressMarkers, function(marker) {
                 marker.show = marker.id === id;
             });
+
+            angular.forEach($scope.locations, function(location) {
+                location.show = false;
+            });
         };
 
         // add point on runtime

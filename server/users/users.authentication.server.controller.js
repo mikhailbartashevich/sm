@@ -74,7 +74,6 @@ exports.signin = function(req, res, next) {
 exports.signout = function(req, res) {
 	req.logout();
 	req.session.destroy();
-	console.log(req.user);
 	res.send('user logged out');
 };
 
