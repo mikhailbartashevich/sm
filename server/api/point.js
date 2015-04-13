@@ -296,21 +296,33 @@ function getTravelType(point, callback) {
 
     heaterControl.child("profile/activeUserId").on("value", function(snapshot) {
 
-        var activeUserId = snapshot.val();
+        if(snapshot) {
 
-        if(activeUserId) {
+            var activeUserId = snapshot.val();
 
-            heaterControl.child("profile/user_" + activeUserId).on("value", function(snapshot) {
-                var activeUser = snapshot.val();
+            if(activeUserId) {
 
-                if(activeUser.userid === point.userid) {
-                    point['travel-type'] = 'byCar';
-                    callback(point);
-                } else {
-                    callback(point);
-                }
+                heaterControl.child("profile/user_" + activeUserId).on("value", function(snapshot) {
+                    if(snapshot) {
 
-            });
+                        var activeUser = snapshot.val();
+
+                        if(activeUser.userid === point.userid) {
+                            point['travel-type'] = 'byCar';
+                            callback(point);
+                        } else {
+                            callback(point);
+                        }
+                        
+                    } else {
+                        callback(point);
+                    }
+
+                });
+
+            } else {
+                callback(point);
+            }
 
         } else {
             callback(point);
