@@ -1,0 +1,11 @@
+runtime: custom
+vm: true
+version: 1
+api_version: 1
+
+manual_scaling:
+  instances: 1
+
+handlers:
+- url: .*
+  script: nothing.js

@@ -1,0 +1,11 @@
+.git
+.tmp
+.bundle
+.sass-cache
+app/scripts/templates/templates.js
+node_modules
+bower_components
+deploy/public
+deploy/server
+public
+.DS_Store

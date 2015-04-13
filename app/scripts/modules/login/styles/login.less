@@ -1,0 +1,101 @@
+@import "../../../../../bower_components/font-awesome/less/font-awesome.less";
+@import "../../../../../bower_components/bootstrap-less/less/bootstrap.less";
+
+@media (min-width: 768px) {
+    .omb_row-sm-offset-3 div[class*="col-"]:first-child {
+        margin-left: 17%;
+    }
+
+    .signup {
+        .omb_row-sm-offset-3 div[class*="col-"]:first-child {
+            margin-left: 25%;
+        }
+    }
+}
+
+.ui-content, .content-wrapper, .wrapper, .angular-google-map-container, .angular-google-map {
+    height: 100%;
+}
+
+.login {
+    .dropdown-toggle {
+        padding-left: 9px;
+    }
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    // overflow: hidden;
+}
+
+.omb_login {
+    
+    .omb_authTitle {
+        text-align: center;
+        line-height: 300%;
+    }
+    .omb_socialButtons {
+        a {
+            color: white;
+            // In yourUse @body-bgopacity:0.9;
+        }
+        a:hover {
+            color: white;
+            opacity:1;
+        }
+        .omb_btn-facebook {
+            background: #3b5998;
+        }
+        .omb_btn-twitter {
+            background: #00aced;
+        }
+        .omb_btn-google {
+            background: #c32f10;
+        }
+    }
+    .omb_loginOr {
+        position: relative;
+        font-size: 1.5em;
+        color: #aaa;
+        margin-top: 1em;
+        margin-bottom: 1em;
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
+        .omb_hrOr {
+            background-color: #cdcdcd;
+            height: 1px;
+            margin-top: 0px !important;
+            margin-bottom: 0px !important;
+        }
+        .omb_spanOr {
+            display: block;
+            position: absolute;
+            left: 50%;
+            top: -0.6em;
+            margin-left: -1.5em;
+            background-color: white;
+            width: 3em;
+            text-align: center;
+        }
+    }
+    .omb_loginForm {
+        .input-group.i {
+            width: 2em;
+        }
+        .help-block {
+            color: red;
+        }
+    }
+
+    .row.omb_row-sm-offset-3 {
+        margin-bottom: 10px;
+    }
+
+}
+
+label.checkbox.remember-me {
+    margin-left: 20px;
+}
+
+

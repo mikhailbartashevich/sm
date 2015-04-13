@@ -1,0 +1,58 @@
+<div class="wrapper">
+  
+    <header class="main-header">
+        <span class="logo"><b>Stress Map</b></span>
+        
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+
+            <div class="navbar-custom-menu">
+            
+                <ul class="nav navbar-nav dashboard">
+
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
+
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img ng-src="{{user.image}}" class="user-image" alt="User Image"/>
+                            <span class="user-name">{{user.providerData.name}}</span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header">
+                                <img ng-src="{{user.image}}" class="img-circle" alt="User Image" />
+                                <p>
+                                    <span>{{user.providerData.name}}</span>
+                                </p>
+                            </li>
+
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                           
+                                <div class="pull-right">
+                                    <a href="#" class="btn btn-default btn-flat" ng-click="handleSignOutBtnClick()">Sign out</a>
+                                </div>
+                            </li>
+
+                        </ul>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+    <!-- Right side column. Contains the navbar and content of the page -->
+    <div class="content-wrapper">
+
+        <div ui-view class="ui-content"></div>
+        
+    </div><!-- /.content-wrapper -->
+
+</div><!-- ./wrapper -->
+
