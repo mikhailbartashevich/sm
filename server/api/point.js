@@ -77,6 +77,10 @@ function initPoint(point, lightRequest) {
 
     } else {
 
+        if(!mobileEvent && point['car-event']) {
+            mobileEvent = point['car-event'];
+        }
+
         modifiedPoint = {
             id : point.id,
             stressLevel : initialStressLevel,
