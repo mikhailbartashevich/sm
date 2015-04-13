@@ -213,11 +213,11 @@ define([
 
             if(point.travelType === 'byCar') {
 
-                if(point.carEvent === 'stop') {
+                if(point.carEvent === 'Heavy braking') {
 
                     point.customIcon = '/images/stop.png';
 
-                } if(point.carEvent === 'accelerate') {
+                } if(point.carEvent === 'Accelerate') {
 
                     point.customIcon =  '/images/acs.png';
 
