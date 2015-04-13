@@ -234,9 +234,6 @@ function processGetResponse(request, response, periodParam, points) {
 
         if(request.query['light']) {
             limitedQuery = Point.find(buildGetQuery(request, period), { 
-                'stress-level': 1, 
-                geolocation: 1, 
-                id: 1, 
                 weather : 0,
                 timestamp : 0,
                 'travel-type' : 0,
