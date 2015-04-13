@@ -254,16 +254,12 @@ define([
                 if(point.marker.time) {
                     point.title +='<div class ="window-item">' + point.marker.time.time + ' ' + point.marker.time.date + '</div>';
                 }
-                
+                if(point.weather.weatherIconUrl[0].value) {
+                    point.title +='<img src="' + point.weather.weatherIconUrl[0].value + '">';
+                }
                 if(point.weather && point.weather.tempF) {
 
-                    point.title +='<div class ="window-item">Temperature: ' + point.weather.tempF + '°F</div> ';
-
-                    if(point.weather.weatherDesc && point.weather.weatherDesc[0]) {
-                        point.title += '<div class ="window-item">' + point.weather.weatherDesc[0].value + '</div> ';
-                    }
-
-                    point.title += '<div class ="window-item">Pressure: ' + point.weather.pressure + 'mb, Humidity: ' + point.weather.humidity + '%</div> ';
+                    point.title +='<div class ="window-item">' + point.weather.tempF + '°F, ' + point.weather.pressure + 'mb, ' + point.weather.humidity + '%</div> ';
 
                 } 
                 
