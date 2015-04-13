@@ -74,10 +74,6 @@ define([
             }
         };
 
-        $scope.highLightTimelinePoint = function(id, geolocation) {
-            console.log(geolocation);
-        };
-
         function calculateAverageStressLevel(stressMarkers) {
             var summ = 0;
 
@@ -142,8 +138,8 @@ define([
 
             location.show = false;
             
-            location.onClick = function() {
-                location.show = !location.show;
+            location.onClick = function(event, point) {
+                closeOpenedWindows(point);
             };
 
             $scope.locations.push(location);
@@ -209,6 +205,16 @@ define([
             5 : 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=5|cc2424|ffffff'
         };
 
+        function closeOpenedWindows(point) {
+            angular.forEach($scope.stressMarkers, function(marker) {
+                marker.show = marker.id === point.id;
+            });
+
+            angular.forEach($scope.locations, function(location) {
+                location.show = false;
+            });
+        }
+
         function calculateCustomIcon(point) {
 
             if(point.travelType === 'car' && point.carEvent) {
@@ -243,8 +249,8 @@ define([
             point.stressMarkers = [point.stressLevel];
             point.averageStressLevel = point.stressLevel;
             
-            point.onClick = function() {
-                point.show = !point.show;
+            point.onClick = function(event, point) {
+                closeOpenedWindows(point);
             };
 
             if(point.marker && point.marker.description) {
