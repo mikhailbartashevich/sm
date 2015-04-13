@@ -60,7 +60,7 @@ function initPoint(point, lightRequest) {
     var initialStressLevel = point['stress-level'],
         time = moment(point.timestamp).format("HH:mm"),
         date = moment(point.timestamp).format("MMM DD YYYY"),
-        mobileEvent = point['mobile-event'] ? point['mobile-event'] : 'Event N/A';
+        mobileEvent = point['mobile-event'] ? point['mobile-event'] : '';
 
     var modifiedPoint = {};
 
@@ -79,6 +79,8 @@ function initPoint(point, lightRequest) {
 
         if(!mobileEvent && point['car-event']) {
             mobileEvent = point['car-event'];
+        } else if(!mobileEvent) {
+            mobileEvent = 'Event N/A';
         }
 
         modifiedPoint = {
@@ -91,7 +93,7 @@ function initPoint(point, lightRequest) {
                 draggable : false
             },
             marker : {
-                description : point['mobile-event'] ? point['mobile-event'] : 'Event N/A',
+                description : mobileEvent,
                 time : {
                     time: moment(point.timestamp).format("HH:mm"),
                     date : moment(point.timestamp).format("MMM DD YYYY")
@@ -134,12 +136,21 @@ function processPoints(points, request) {
                 &&  point['travel-type'] !== 'byCar'
                 && (!request.query['stress'] || request.query['stress'] === 'all')) {
 
+
+                var mobileEvent = point['mobile-event'] ? point['mobile-event'] : '';
+
+                if(!mobileEvent && point['car-event']) {
+                    mobileEvent = point['car-event'];
+                } else if(!mobileEvent) {
+                    mobileEvent = 'Event N/A';
+                }
+
                 var eventInfo = {
                     time : {
                         time: moment(point.timestamp).format("HH:mm"),
                         date : moment(point.timestamp).format("MMM DD YYYY")
                     },
-                    description : point['mobile-event'] ? point['mobile-event'] : 'Event N/A'
+                    description : 
                 };
 
                 modifiedPoint.previousEvents.push(modifiedPoint.marker);

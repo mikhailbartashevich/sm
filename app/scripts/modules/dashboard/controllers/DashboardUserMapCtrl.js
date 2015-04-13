@@ -211,7 +211,7 @@ define([
 
         function calculateCustomIcon(point) {
 
-            if(point.travelType === 'byCar') {
+            if(point.travelType === 'car') {
 
                 if(point.carEvent === 'Heavy braking') {
 
