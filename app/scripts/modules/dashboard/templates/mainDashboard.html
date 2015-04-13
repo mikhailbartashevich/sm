@@ -41,18 +41,21 @@
                                 <label></label>
                                 <div class="thumb" ng-class="eventItem.status">
                                     <p>{{::eventItem.stressLevel}}</p>
-                                    <span>{{::eventItem.time.time}}</span>
-                                    <span class="event-date">{{::eventItem.time.date}}</span>
+                                    <span>{{::eventItem.marker.time.time}}</span>
+                                    <span class="event-date">{{::eventItem.marker.time.date}}</span>
                                 </div>
                                 <div class="content-perspective">
                                     <div class="content">
                                         <div class="content-inner">
-                                            <h3>{{::eventItem.lastEvent.time}} : {{::eventItem.lastEvent.description}}</h3>
                                             <p class="timeline-events">
                                                 <span ng-repeat="previousEvent in eventItem.previousEvents">
-                                                    {{::previousEvent.time}} : {{::previousEvent.description}}
+                                                    {{::previousEvent.time.time}} : {{::previousEvent.description}}
                                                 </span>
                                             </p>
+                                            <h3 class="travel-type">
+                                                 <img ng-src="{{eventItem.marker.icon}}" class="timeline-icon" alt=""/>
+                                                {{::eventItem.marker.time.time}} : {{::eventItem.marker.description}}
+                                            </h3>
                                         </div>
                                     </div>
                                 </div>

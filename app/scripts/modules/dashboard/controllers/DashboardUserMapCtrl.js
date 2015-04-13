@@ -213,9 +213,12 @@ define([
             if(point.travelType === 'byCar') { 
                 if(point.carEvent === 'stop') {
                     point.customIcon = 'http://maps.google.com/mapfiles/kml/pal2/icon24.png';
-                } else {          
+                } else {
                     point.customIcon = 'http://maps.google.com/mapfiles/kml/pal2/icon39.png';
                 }
+
+                point.marker.icon = point.customIcon;
+                
             } else {
                 point.customIcon = levelMap[point.stressLevel];
             }
@@ -230,12 +233,12 @@ define([
                 point.show = !point.show;
             };
 
-            if(point.lastEvent) {
+            if(point.marker.description) {
 
                 point.title = '<div >';
 
-                if(point.time) {
-                    point.title +='<div class ="window-item">' + point.time.time + ' ' + point.time.date + '</div>';
+                if(point.marker.time) {
+                    point.title +='<div class ="window-item">' + point.marker.time.time + ' ' + point.marker.time.date + '</div>';
                 }
                 
                 if(point.weather && point.weather.tempF) {
@@ -250,7 +253,7 @@ define([
 
                 } 
                 
-                point.title += '<div class ="window-item"> Last event: ' + point.lastEvent.description + '</div></div>';
+                point.title += '<div class ="window-item">' + point.marker.description + '</div></div>';
 
             }
 

@@ -86,6 +86,13 @@ function initPoint(point, lightRequest) {
             markerOptions : {
                 draggable : false
             },
+            marker : {
+                description : point['mobile-event'] ? point['mobile-event'] : 'Event N/A',
+                time : {
+                    time: moment(point.timestamp).format("HH:mm"),
+                    date : moment(point.timestamp).format("MMM DD YYYY")
+                }
+            },
             time : {
                 time: time,
                 date : moment(point.timestamp).format("MMM DD YYYY")
@@ -118,12 +125,24 @@ function processPoints(points, request) {
 
         _.forEach(points, function(point, key) {
 
-            if(!request.query['light'] && initialStressLevel === point['stress-level'] && key > 0 && (!request.query['stress'] || request.query['stress'] === 'all')) {
+            if(!request.query['light'] && 
+                initialStressLevel === point['stress-level'] && key > 0 
+                &&  point['travel-type'] !== 'byCar'
+                && (!request.query['stress'] || request.query['stress'] === 'all')) {
 
-                modifiedPoint.previousEvents.push({
-                    time : moment(point.timestamp).format("HH:mm"),
+                var eventInfo = {
+                    time : {
+                        time: moment(point.timestamp).format("HH:mm"),
+                        date : moment(point.timestamp).format("MMM DD YYYY")
+                    },
                     description : point['mobile-event'] ? point['mobile-event'] : 'Event N/A'
-                });
+                };
+
+                modifiedPoint.previousEvents.push(modifiedPoint.marker);
+
+                modifiedPoint.geolocation = point.geolocation;
+
+                modifiedPoint.marker = eventInfo;
 
                 // if(point.locations) {
                 //     modifiedPoint.locations = modifiedPoint.locations.concat(getLocations(point.locations));
