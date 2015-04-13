@@ -217,6 +217,10 @@ define([
                     point.customIcon = 'http://maps.google.com/mapfiles/kml/pal2/icon39.png';
                 }
 
+                if(!point.marker) {
+                    point.marker = {};
+                }
+
                 point.marker.icon = point.customIcon;
                 
             } else {
@@ -233,7 +237,7 @@ define([
                 point.show = !point.show;
             };
 
-            if(point.marker.description) {
+            if(point.marker && point.marker.description) {
 
                 point.title = '<div >';
 
