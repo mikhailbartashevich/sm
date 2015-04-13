@@ -91,6 +91,7 @@ function initPoint(point, lightRequest) {
                 date : moment(point.timestamp).format("MMM DD YYYY")
             },
             travelType : point['travel-type'],
+            carEvent : point['car-event'],
             geolocation : point.geolocation,
             locations : getLocations(point.locations),
             weather : point.weather,
@@ -293,17 +294,28 @@ function getTravelType(point, callback) {
 
     var travelType = 'onFoot';
 
-    heaterControl.child("heater-control/profile").on("value", function(snapshot) {
+    heaterControl.child("profile/activeUserId").on("value", function(snapshot) {
 
-        var profile = snapshot.val();
+        var activeUserId = snapshot.val();
 
-        if(profile['user_' + profile.activeUserId].userid === point.userid) {
-            travelType = 'byCar';
+        if(activeUserId) {
+
+            heaterControl.child("profile/user_" + activeUserId).on("value", function(snapshot) {
+                var activeUser = snapshot.val();
+
+                if(activeUser.userid === point.userid) {
+                    point['travel-type'] = 'byCar';
+                    callback(point);
+                } else {
+                    callback(point);
+                }
+
+            });
+
+        } else {
+            callback(point);
         }
-
-        point.travelType = travelType;
-
-        callback(travelType);
+        
     });
 
 }
@@ -336,7 +348,7 @@ function getWeather (point, callback) {
 
 }
 
-function savePoint(pointParam, socketServer) {
+function savePoint(pointParam, response, socketServer) {
     var point = new Point(pointParam);
 
     point.save(function(err) {
@@ -361,21 +373,24 @@ module.exports = function(app, socketServer) {
             try {
 
                 if(request.body.point.geolocation) {
-                    getNearPoints(request.body.point, function(point) {
-                        getWeather(point, function() {
-                            savePoint(point, socketServer);
+                    getNearPoints(request.body.point, function(pointWithLocation) {
 
+                        getWeather(pointWithLocation, function(pointWithWeather) {
+
+                            getTravelType(pointWithWeather, function(pointWithTravelType) {
+                                
+                                savePoint(pointWithTravelType, response, socketServer);
                                 response.status(200);
                                 response.send( 'Point saved successfully!' );
 
-                            // getTravelType(point, function() {
-                                
-                            // });
+                            });
+
                         });
+
                     });
                 } else {
                     response.send( 'Point saved without geolocation' );
-                    savePoint(request.body.point, socketServer);
+                    savePoint(request.body.point, response, socketServer);
                 }
 
             } catch(schemaErr) {

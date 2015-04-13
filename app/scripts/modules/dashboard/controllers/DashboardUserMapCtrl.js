@@ -210,8 +210,12 @@ define([
         };
 
         function calculateCustomIcon(point) {
-            if(point.travelType === 'byCar') {            
-                point.customIcon = 'http://maps.google.com/mapfiles/kml/pal5/icon39.png';
+            if(point.travelType === 'byCar') { 
+                if(point.carEvent === 'stop') {
+                    point.customIcon = 'http://maps.google.com/mapfiles/kml/pal2/icon24.png';
+                } else {          
+                    point.customIcon = 'http://maps.google.com/mapfiles/kml/pal2/icon39.png';
+                }
             } else {
                 point.customIcon = levelMap[point.stressLevel];
             }
