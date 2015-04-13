@@ -210,11 +210,21 @@ define([
         };
 
         function calculateCustomIcon(point) {
-            if(point.travelType === 'byCar') { 
+
+            if(point.travelType === 'byCar') {
+
                 if(point.carEvent === 'stop') {
-                    point.customIcon = 'http://maps.google.com/mapfiles/kml/pal2/icon24.png';
+
+                    point.customIcon = '/images/stop.png';
+
+                } if(point.carEvent === 'accelerate') {
+
+                    point.customIcon =  '/images/acs.png';
+
                 } else {
+
                     point.customIcon = 'http://maps.google.com/mapfiles/kml/pal2/icon39.png';
+
                 }
 
                 if(!point.marker) {

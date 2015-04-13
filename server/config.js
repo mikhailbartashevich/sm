@@ -6,7 +6,7 @@ module.exports = {
 	},
 
 	db : {
-		url : 'mongodb://108.59.83.65/stressmap'
+		url : 'mongodb://localhost/stressmap'
 	},
 
 	session : {
