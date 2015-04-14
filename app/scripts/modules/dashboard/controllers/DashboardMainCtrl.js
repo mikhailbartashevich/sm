@@ -72,7 +72,7 @@ define([
                 }
 
                 if($rootScope.user.username.indexOf('@') !== -1) {
-                    $rootScope.user.username = $rootScope.user.username.substr(0, str.indexOf('@'));
+                    $rootScope.user.username = $rootScope.user.username.substr(0, $rootScope.user.username.indexOf('@'));
                 }
 
                 $http.get('/api/point/byperiod?period=lastday&userid=' + $rootScope.user.username).success(function(response) {
