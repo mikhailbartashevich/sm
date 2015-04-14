@@ -5,6 +5,7 @@ var mongoose = require('mongoose'),
 var pointSchema = new Schema({
     timestamp: { type: Date, required: true },
     userid: { type: String, required: true },
+    gplusid: String,
     'stress-level': { type: Number, required: true },
     'travel-type': String,
     geolocation : {

@@ -192,6 +192,7 @@ function buildGetQuery(request, periodParam) {
         ltParam = today, 
         fromParam = request.query['from'],
         userid = request.query['userid'],
+        gplusid = request.query['gplusid'],
         stress = request.query['stress'],
         toParam = request.query['to'];
 
@@ -231,6 +232,10 @@ function buildGetQuery(request, periodParam) {
 
     if(userid && userid !== 'all') {
         query['userid'] = userid;
+    }
+
+    if(gplusid) {
+        query['gplusid'] = gplusid;
     }
 
     if(stress && stress !== 'all') {
