@@ -264,14 +264,18 @@ define([
 
                     point.title +='<div class ="window-item">';
 
-                    if(point.weather.tempF){
+                    if(point.weather.weatherIconUrl) {
                         if(point.weather.weatherIconUrl && point.weather.weatherIconUrl[0].value) {
                             point.title +='<img src="' + point.weather.weatherIconUrl[0].value + '">';
                         }
                     }
-                    point.title += point.weather.tempF + '°F, ';
+                    
+                    if(point.weather.tempF) {
+                        point.title += ' ' + point.weather.tempF + '°F ';
+                    }
+
                     if(point.weather.pressure){
-                        point.title += '<img src="/images/pressure.png">' + point.weather.pressure + 'mb, ';
+                        point.title += '<img src="/images/pressure.png">' + point.weather.pressure + 'mb ';
                     }
                     if(point.weather.humidity){
                         point.title += '<img src="/images/humidity.png">' + point.weather.humidity + '%</div> ';
