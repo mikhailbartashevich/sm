@@ -60,7 +60,8 @@ define([
         };
 
         $scope.clusterOptions = {
-            calculator : controller.clusterCalculator
+            calculator : controller.clusterCalculator,
+            minimumClusterSize : 5
         };
 
         uiGmapGoogleMapApi.then(function(maps) {});
