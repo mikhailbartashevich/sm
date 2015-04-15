@@ -9,20 +9,31 @@
             <div class="filter-group">
 
                 <div class="btn-group" role="group" aria-label="...">
-                    <button type="button" class="btn" ng-class="period === 'lastday' ? 'first-level-status' : 'btn-default' " ng-click="applyFilter('lastday')">1d</button>
-                    <button type="button" class="btn" ng-class="period === 'lastweek' ? 'first-level-status' : 'btn-default' " ng-click="applyFilter('lastweek')">7d</button>
-                    <button type="button" class="btn hidden-xs" ng-class="period === 'lastmonth' ? 'first-level-status' : 'btn-default' "ng-click="applyFilter('lastmonth')">Month</button>
-                    <button type="button" class="btn hidden-xs" ng-class="period === 'lastyear' ? 'first-level-status' : 'btn-default' "ng-click="applyFilter('lastyear')">Year</button>
-                </div>
 
-                <div class="btn-group" role="group" aria-label="...">
-
-                    <button type="button" class="btn"  ng-class="stressLevel === 'all' ? 'first-level-status' : 'btn-default' " ng-click="applyFilter(null, 'all')">All</button>
+                    <button type="button" class="btn"  ng-class="stressLevel === 'all' ? 'first-level-status' : 'btn-default' " ng-click="applyFilter(null, 'all')">All stress levels</button>
                     <button type="button" class="btn"  ng-class="stressLevel === '1' ? 'first-level-status' : 'btn-default' "ng-click="applyFilter(null, '1')">1</button>
                     <button type="button" class="btn" ng-class="stressLevel === '2' ? 'first-level-status' : 'btn-default' " ng-click="applyFilter(null, '2')">2</button>
                     <button type="button" class="btn" ng-class="stressLevel === '3' ? 'first-level-status' : 'btn-default' "  ng-click="applyFilter(null, '3')">3</button>
                     <button type="button" class="btn" ng-class="stressLevel === '4' ? 'first-level-status' : 'btn-default' "  ng-click="applyFilter(null, '4')">4</button>
                     <button type="button" class="btn" ng-class="stressLevel === '5' ? 'first-level-status' : 'btn-default' "  ng-click="applyFilter(null, '5')">5</button>
+                    
+                </div>
+
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="button" class="btn" ng-class="period === 'lastday' ? 'first-level-status' : 'btn-default' " ng-click="applyFilter('lastday')">1d</button>
+                    <button type="button" class="btn" ng-class="period === 'lastweek' ? 'first-level-status' : 'btn-default' " ng-click="applyFilter('lastweek')">7 d</button>
+                    <button type="button" class="btn" ng-class="period === 'lastmonth' ? 'first-level-status' : 'btn-default' " ng-click="applyFilter('lastmonth')">1 Month</button>
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn" ng-class="stressLevelChangeState === 'all' ? 'first-level-status' : 'btn-default' "ng-click="applyFilter(null, null, 'all')">All</button>
+
+                    <button type="button" class="btn" ng-class="stressLevelChangeState === 'increased' ? 'first-level-status' : 'btn-default' "ng-click="applyFilter(null, null, 'increased')">
+                        <i class="fa fa-arrow-up text-danger"></i>
+                    </button>
+                    <button type="button" class="btn" ng-class="stressLevelChangeState === 'decreased' ? 'first-level-status' : 'btn-default' "ng-click="applyFilter(null, null, 'decreased')">
+                        <i class="fa fa-arrow-down text-success"></i>
+                    </button>
                 </div>
 
             </div>
@@ -35,7 +46,7 @@
 
                         <ul ng-show="timelineEvents.length" class="timeline">
 
-                            <li class="event" ng-repeat="eventItem in timelineEvents">
+                            <li class="event"  ng-class="eventItem.stressLevelChangeState === 'increased' ? 'increased-level' : 'decreased-level' " ng-repeat="eventItem in timelineEvents">
 
                                 <input type="radio" name="tl-group" ng-click="highLightMarker(eventItem.id, eventItem.geolocation)">
                                 <label></label>

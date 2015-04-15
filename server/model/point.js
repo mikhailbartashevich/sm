@@ -7,6 +7,7 @@ var pointSchema = new Schema({
     userid: { type: String, required: true },
     gplusid: String,
     'stress-level': { type: Number, required: true },
+    'stress-level-change-state' : { type : String, default : 'not changed'}, // increased, decreased
     'travel-type': String,
     geolocation : {
         latitude : Number,

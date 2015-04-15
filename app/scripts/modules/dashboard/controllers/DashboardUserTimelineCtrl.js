@@ -90,8 +90,11 @@ define([
 
                 $scope.busy = true;
 
-                $http.get('/api/point/byperiod?to=' + lastItemTimestamp + '&stress=' +  $scope.stressLevel +
-                    '&userid=' + $rootScope.user.username).success(function(response) {
+                $http.get('/api/point/byperiod?to=' + lastItemTimestamp + 
+                    '&stress=' +  $scope.stressLevel +
+                    '&stressLevelChange=' + $scope.stressLevelChangeState +   
+                    '&userid=' + $rootScope.user.username
+                    ).success(function(response) {
                         
                     $scope.busy = false;
 
