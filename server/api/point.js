@@ -89,6 +89,7 @@ function initPoint(point, lightRequest) {
             status : levelMap[initialStressLevel] + '-level-status',
             timestamp : point.timestamp,
             weather : point.weather,
+            stressLevelChangeState : point['stress-level-change-state'],
             markerOptions : {
                 draggable : false
             },
@@ -133,7 +134,6 @@ function processPoints(points, request) {
 
             if(!request.query['light'] && 
                 initialStressLevel === point['stress-level'] && key > 0 
-                &&  point['travel-type'] !== 'byCar'
                 && (!request.query['stress'] || request.query['stress'] === 'all')) {
 
 
@@ -192,6 +192,8 @@ function buildGetQuery(request, periodParam) {
         ltParam = today, 
         fromParam = request.query['from'],
         userid = request.query['userid'],
+        gplusid = request.query['gplusid'],
+        stressLevelChange = request.query['stressLevelChange'],
         stress = request.query['stress'],
         toParam = request.query['to'];
 
@@ -231,6 +233,14 @@ function buildGetQuery(request, periodParam) {
 
     if(userid && userid !== 'all') {
         query['userid'] = userid;
+    }
+
+    if(gplusid) {
+        query['gplusid'] = gplusid;
+    }
+
+    if(stressLevelChange && stressLevelChange !== 'all') {
+        query['stress-level-change-state'] = stressLevelChange;
     }
 
     if(stress && stress !== 'all') {
@@ -394,6 +404,47 @@ function getWeather (point, callback) {
 
 }
 
+
+function getStressLevelChangeState(point, callback) {
+        
+    var limitedQuery = {};
+
+    limitedQuery = Point.find({
+
+        userid : point.userid
+
+    }, {
+
+        'stress-level' : 1,
+        timestamp : 1
+
+    } ).sort({'timestamp': -1}).limit(1);
+
+    limitedQuery.exec(function(err, points) {
+
+        if (err) {
+            callback(point);
+        } else {
+
+            if(points.length) {
+                var previousPoint = points[0],
+                    oldStressLevel = previousPoint['stress-level'];
+
+                if(oldStressLevel > point['stress-level']) {
+                    point['stress-level-change-state'] = 'decreased';
+                } else if(oldStressLevel < point['stress-level']) {
+                    point['stress-level-change-state'] = 'increased';
+                }
+
+            }
+
+            callback(point);
+
+        }
+
+    });
+}
+
 function savePoint(pointParam, response, socketServer) {
     var point = new Point(pointParam);
 
@@ -424,16 +475,19 @@ module.exports = function(app, socketServer) {
                         getWeather(pointWithLocation, function(pointWithWeather) {
 
                             getTravelType(pointWithWeather, function(pointWithTravelType) {
-                                
-                                savePoint(pointWithTravelType, response, socketServer);
-                                response.status(200);
-                                response.send( 'Point saved successfully!' );
+
+                                getStressLevelChangeState(pointWithTravelType, function(pointWithChangeState) {
+                                    savePoint(pointWithChangeState, response, socketServer);
+                                    response.status(200);
+                                    response.send( 'Point saved successfully!' );
+                                });
 
                             });
 
                         });
 
                     });
+
                 } else {
                     response.send( 'Point saved without geolocation' );
                     savePoint(request.body.point, response, socketServer);

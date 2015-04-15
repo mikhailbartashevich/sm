@@ -16,18 +16,28 @@ define([
 
         $scope.stressLevel = 'all';
         $scope.period = 'lastday';
+        $scope.stressLevelChangeState = 'all';
   
         var controller = this;
 
-        $scope.applyFilter  = function(period, stressLevel) {
+        $scope.applyFilter  = function(period, stressLevel, levelChange) {
 
             $scope.period = period ? period : $scope.period;
             $scope.stressLevel = stressLevel ? stressLevel : $scope.stressLevel;
+            $scope.stressLevelChangeState = levelChange ? levelChange : $scope.stressLevelChangeState;
 
-            $http.get('/api/point/byperiod?period=' + $scope.period + '&stress=' +  $scope.stressLevel + '&userid=' + $rootScope.user.username).success(function(response) {
-                $scope.setTimelinePoints(response.points);
-                $scope.stressMarkers = [];
-                $scope.stressMarkers = $scope.initMarkers($scope.timelineEvents);                
+            $http.get(
+
+                '/api/point/byperiod' +
+                '?period=' + $scope.period + 
+                '&stress=' +  $scope.stressLevel +
+                '&stressLevelChange=' + $scope.stressLevelChangeState +   
+                '&userid=' + $rootScope.user.username
+
+                ).success(function(response) {
+                    $scope.setTimelinePoints(response.points);
+                    $scope.stressMarkers = [];
+                    $scope.stressMarkers = $scope.initMarkers($scope.timelineEvents);                
             });
 
         };
@@ -75,7 +85,11 @@ define([
                     $rootScope.user.username = $rootScope.user.username.substr(0, $rootScope.user.username.indexOf('@'));
                 }
 
-                $http.get('/api/point/byperiod?period=lastday&userid=' + $rootScope.user.username).success(function(response) {
+                $http.get('/api/point/byperiod?period=lastday' +
+                    '&stress=' +  $scope.stressLevel +
+                    '&stressLevelChange=' + $scope.stressLevelChangeState +   
+                    '&userid=' + $rootScope.user.username
+                    ).success(function(response) {
                     $scope.setTimelinePoints(response.points);
                     $scope.setMapMarkers(response.points); 
                     controller.startListeningSocket();
