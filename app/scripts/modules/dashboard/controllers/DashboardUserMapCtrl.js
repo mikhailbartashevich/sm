@@ -6,7 +6,7 @@ define([
     ], function(angular) {
     'use strict';
 
-    function DashboardUserMapController($scope, uiGmapGoogleMapApi) {
+    function DashboardUserMapController($scope, $rootScope, uiGmapGoogleMapApi) {
 
         var controller = this;
 
@@ -60,7 +60,8 @@ define([
         };
 
         $scope.clusterOptions = {
-            calculator : controller.clusterCalculator
+            calculator : controller.clusterCalculator,
+            minimumClusterSize : 5
         };
 
         uiGmapGoogleMapApi.then(function(maps) {});
@@ -249,8 +250,9 @@ define([
             point.stressMarkers = [point.stressLevel];
             point.averageStressLevel = point.stressLevel;
             
-            point.onClick = function(event, point) {
+            point.onClick = function(object, event, point) {
                 closeOpenedWindows(point);
+                $rootScope.$broadcast('markerClicked', point.id);
             };
 
             if(point.marker && point.marker.description) {
@@ -264,14 +266,18 @@ define([
 
                     point.title +='<div class ="window-item">';
 
-                    if(point.weather.tempF){
+                    if(point.weather.weatherIconUrl) {
                         if(point.weather.weatherIconUrl && point.weather.weatherIconUrl[0].value) {
                             point.title +='<img src="' + point.weather.weatherIconUrl[0].value + '">';
                         }
                     }
-                    point.title += point.weather.tempF + '°F, ';
+                    
+                    if(point.weather.tempF) {
+                        point.title += ' ' + point.weather.tempF + '°F ';
+                    }
+
                     if(point.weather.pressure){
-                        point.title += '<img src="/images/pressure.png">' + point.weather.pressure + 'mb, ';
+                        point.title += '<img src="/images/pressure.png">' + point.weather.pressure + 'mb ';
                     }
                     if(point.weather.humidity){
                         point.title += '<img src="/images/humidity.png">' + point.weather.humidity + '%</div> ';

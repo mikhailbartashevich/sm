@@ -5,6 +5,8 @@ define([
         'modules/dashboard/controllers/DashboardUserMapCtrl',
         'modules/dashboard/controllers/DashboardUserTimelineCtrl',
         'modules/dashboard/controllers/DashboardMainCtrl',
+        'modules/dashboard/directives/initTimelineDirective',
+        
         // 'modules/dashboard/controllers/DashboardChartsCtrl',
         // 'modules/dashboard/controllers/DashboardTablesCtrl',
         'angular-google-maps',
@@ -14,7 +16,8 @@ define([
         'adminlte'
     ], 
 
-    function (angular, ApplicationConfiguration, DashboardCtrl, DashboardUserMapCtrl, DashboardUserTimelineCtrl, DashboardMainCtrl) {
+    function (angular, ApplicationConfiguration, DashboardCtrl, DashboardUserMapCtrl, 
+        DashboardUserTimelineCtrl, DashboardMainCtrl, InitTimelineDirective) {
 
         'use strict';
 
@@ -49,6 +52,7 @@ define([
         dashboardModule.controller('DashboardUserMapCtrl', DashboardUserMapCtrl);
         dashboardModule.controller('DashboardUserTimelineCtrl', DashboardUserTimelineCtrl);
         dashboardModule.controller('DashboardMainCtrl', DashboardMainCtrl);
+        dashboardModule.directive('initTimeline', InitTimelineDirective);
         // dashboardModule.controller('DashboardChartsCtrl', DashboardChartsCtrl);
         // dashboardModule.controller('DashboardTablesCtrl', DashboardTablesCtrl);
 

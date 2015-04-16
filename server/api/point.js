@@ -157,6 +157,8 @@ function processPoints(points, request) {
 
                 modifiedPoint.geolocation = point.geolocation;
 
+                modifiedPoint.stressLevelChangeState = point['stress-level-change-state'];
+
                 modifiedPoint.marker = eventInfo;
 
                 // if(point.locations) {

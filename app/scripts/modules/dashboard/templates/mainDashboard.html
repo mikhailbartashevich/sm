@@ -46,7 +46,7 @@
 
                         <ul ng-show="timelineEvents.length" class="timeline">
 
-                            <li class="event"  ng-class="eventItem.stressLevelChangeState === 'increased' ? 'increased-level' : 'decreased-level' " ng-repeat="eventItem in timelineEvents">
+                            <li class="event"  id="point-{{::eventItem.id}}" ng-class="eventItem.stressLevelChangeState === 'increased' ? 'increased-level' : 'decreased-level' " ng-repeat="eventItem in timelineEvents">
 
                                 <input type="radio" name="tl-group" ng-click="highLightMarker(eventItem.id, eventItem.geolocation)">
                                 <label></label>
@@ -64,8 +64,8 @@
                                                 </span>
                                             </p>
                                             <h3 class="travel-type">
-                                                 <img ng-src="{{eventItem.marker.icon}}" class="timeline-icon" alt=""/>
-                                                {{::eventItem.marker.time.time}} : {{::eventItem.marker.description}}
+                                                <img ng-src="{{eventItem.marker.icon}}" class="timeline-icon" alt=""/>
+                                                {{::eventItem.weather.tempF}}°F {{::eventItem.marker.time.time}} : {{::eventItem.marker.description}}
                                             </h3>
                                         </div>
                                     </div>
@@ -90,14 +90,14 @@
                 <ui-gmap-markers models="stressMarkers" idKey = "'id'" coords="'geolocation'" control="markerControl" doCluster="'true'" clusterOptions="clusterOptions"
                                  icon="'customIcon'" options="'markerOptions'" click="'onClick'">
                     <ui-gmap-windows show="show">
-                        <div ng-non-bindable>{{title}}</div>
+                        <div ng-non-bindable>{{::title}}</div>
                     </ui-gmap-windows>
                 </ui-gmap-markers>
 
                 <ui-gmap-markers models="locations" idKey = "'place_id'" coords="'coords'"
                                  icon="'customIcon'" options="'markerOptions'" click="'onClick'">
                     <ui-gmap-windows show="show">
-                        <div ng-non-bindable>{{name}}</div>
+                        <div ng-non-bindable>{{::name}}</div>
                     </ui-gmap-windows>
                 </ui-gmap-markers>
 
@@ -109,3 +109,5 @@
 
    
 </section><!-- /.content -->
+
+<init-timeline></init-timeline>
