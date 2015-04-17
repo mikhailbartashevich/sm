@@ -21,7 +21,7 @@ define([
             var centerLatLng = new google.maps.LatLng(geolocation.latitude, geolocation.longitude);
             var gMap = $scope.map.control.getGMap();
             gMap.panTo(centerLatLng);
-            gMap.setZoom(24);
+            gMap.setZoom(18);
             angular.forEach($scope.stressMarkers, function(marker) {
                 marker.show = marker.id === id;
             });

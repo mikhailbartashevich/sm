@@ -139,7 +139,7 @@ define([
 
             location.show = false;
             
-            location.onClick = function(event, point) {
+            location.onClick = function(object, event, point) {
                 closeOpenedWindows(point);
             };
 
@@ -252,7 +252,6 @@ define([
             
             point.onClick = function(object, event, point) {
                 closeOpenedWindows(point);
-                $rootScope.$broadcast('markerClicked', point.id);
             };
 
             if(point.marker && point.marker.description) {
@@ -288,10 +287,13 @@ define([
                 point.title += '<div class ="window-item">' + point.marker.description + '</div></div>';
 
             }
-
             calculateCustomIcon(point);
 
             markers.push(point);            
+        };
+
+        $scope.highlightTimelineEvent = function(id){
+            $rootScope.$broadcast('markerClicked', id);
         };
 
         $scope.calculateNextMarkers = function(points) {

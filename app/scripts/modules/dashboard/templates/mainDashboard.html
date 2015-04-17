@@ -89,8 +89,12 @@
 
                 <ui-gmap-markers models="stressMarkers" idKey = "'id'" coords="'geolocation'" control="markerControl" doCluster="'true'" clusterOptions="clusterOptions"
                                  icon="'customIcon'" options="'markerOptions'" click="'onClick'">
-                    <ui-gmap-windows show="show">
-                        <div ng-non-bindable>{{::title}}</div>
+
+                    <ui-gmap-windows show="show" ng-cloak>
+                        <div>
+                            <div ng-non-bindable >{{::title}}</div>
+                            <a href ng-click="$parent.$parent.highlightTimelineEvent(model.id)">Show event details</a>   
+                        </div>
                     </ui-gmap-windows>
                 </ui-gmap-markers>
 
